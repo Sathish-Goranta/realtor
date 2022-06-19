@@ -1,25 +1,17 @@
-name: PHP Composer
-
+name: php
 on:
   push:
-    branches: [ "main" ]
+    branches: [ main ]
   pull_request:
-    branches: [ "main" ]
-
-permissions:
-  contents: read
-
+    branches: [ main ]
 jobs:
-  build:
-
+  laravel-tests:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v3
-
-    
-    # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
-    # Docs: https://getcomposer.org/doc/articles/scripts.md
-
-    # - name: Run test suite
-    #   run: composer run-script test
+    - name: Deploy to main
+      uses: appleboy/ssh-action@master
+      with:
+          username: "ubuntu"
+          host: "3.108.66.147"
+          password: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDe0xcbUzKWP3atVziTeMdHcu5yEIKNtmkeAzoB9+F0hbwYbykv5BKlM3bZjs6oKwXiJG2EwM/LJb1J8Jhcgn4/2Zv4LV+jGotIJlHCE3P1TbfCWZJ4QFDk5LjaJ9PKA5pk6t4pl4efJTaTdfUtepZ+AdVD+yJWxIvE1Ykz9BgfAgPNfSLD9v7DryYBgONSiBNUp+l3kLLQXrWrXC+M1GlnIDFyPuauXCv9PRdidCmLG1U9pbac1S0sim+R4U6PqpXbZDutTRX62uF2GD1lJbC/oiPDWQ0e12wIyFK6g1F+vj8K9O0Vq/Rv3O5kZ49H0Nhn3JM+0TSZWU1vaa0LfAsY5WKFwr9N5p5tWyhrVFYlQ2WZZxOwPec89mHobFgNdKlyccAp7/6dSz43DwKdo2784ra4MyjSmAS/Dlevi49kv9mGP1YDwBb43Ytwmdl6nw2kuYE/vH92oTUB6UkP6Du9ENCRD1o+eogDpYWQLkVhQm5D3XUzkiIR2AJEfK5rXOE= ubuntu@ip-172-31-44-205"
+          script: 'cd /var/www/nextpagedev && ./auto-deploy.sh' #cd /var/www/html/MerqataAPI && ./server_deploy.sh
